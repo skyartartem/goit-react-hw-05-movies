@@ -1,10 +1,11 @@
 import SearchBar from 'components/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getSearch } from 'services/getSearch';
 const Movies = () => {
   const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [error, setError] = useState(null);
+//   const [page, setPage] = useState(1);
+//   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
 
     
@@ -16,15 +17,16 @@ const Movies = () => {
        try {
          const data = await getSearch(query);
          setMovies(data.results);
-         setPage(data.page);
+        //  setPage(data.page);
        } catch (error) {
          console.log(error);
-         setError(error);
+        //  setError(error);
        }
      };
     
+    
   const handleSubmit = query => {
-    setSearch(query);
+      setSearch(query);
   };
 
   return (
@@ -34,7 +36,7 @@ const Movies = () => {
               {movies.map(movie => {
                   return (
                       <li key={movie.id}>
-                          <p>{movie.title}</p>
+                          <Link to={`${movie.id}`} >{movie.title}</Link>
                       </li>
                   )
                })}
