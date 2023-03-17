@@ -1,46 +1,51 @@
 import SearchBar from 'components/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getSearch } from 'services/getSearch';
 const Movies = () => {
-  const [search, setSearch] = useState('');
-//   const [page, setPage] = useState(1);
-//   const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+  //   const [search, setSearch] = useState('');
+  //   const [page, setPage] = useState(1);
+  //   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
 
-    
-     useEffect(() => {
-       getFunc(search);
-     }, [search]);
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+    getFunc(query);
+  }, [query]);
 
-     const getFunc = async (query) => {
-       try {
-         const data = await getSearch(query);
-         setMovies(data.results);
-        //  setPage(data.page);
-       } catch (error) {
-         console.log(error);
-        //  setError(error);
-       }
-     };
-    
-    
+  const getFunc = async query => {
+    try {
+      const data = await getSearch(query);
+      setMovies(data.results);
+      //  setPage(data.page);
+    } catch (error) {
+      console.log(error);
+      //  setError(error);
+    }
+  };
+
   const handleSubmit = query => {
-      setSearch(query);
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+    //   setSearchParams(query);
   };
 
   return (
     <div>
-          <SearchBar handleSubmit={handleSubmit} />
-          <ul>
-              {movies.map(movie => {
-                  return (
-                      <li key={movie.id}>
-                          <Link to={`${movie.id}`} >{movie.title}</Link>
-                      </li>
-                  )
-               })}
-          </ul>
+      <SearchBar handleSubmit={handleSubmit} />
+      <ul>
+        {movies.map(movie => {
+          return (
+            <li key={movie.id}>
+              <Link to={`${movie.id}`}>{movie.title}</Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getDetaiils } from 'services/getDetails';
 
@@ -23,10 +23,21 @@ const MovieDetails = () => {
     //   setError(error);
     }
   };
-    return <div>
-        <h2>{movie.title}</h2>
-        
-    </div>;
+    return (
+      <div>
+            <h2>{movie.title}</h2>
+            <h3>Additional information</h3>
+        <ul>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="reviews">Reviews</Link>
+          </li>
+            </ul>
+            <Outlet/>
+      </div>
+    );
 };
 
 export default MovieDetails;
