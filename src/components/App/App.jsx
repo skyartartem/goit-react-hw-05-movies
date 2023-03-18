@@ -4,7 +4,7 @@ import Home from 'pages/Home';
 import MovieDetails from 'pages/MovieDetails';
 import Movies from 'pages/Movies';
 import { Routes, Route } from 'react-router-dom';
-import Cast from './Cast/Cast';
+import Cast from '../Cast/Cast';
 
 export const App = () => {
   return (

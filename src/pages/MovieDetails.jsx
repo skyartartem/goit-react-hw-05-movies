@@ -25,8 +25,9 @@ const MovieDetails = () => {
   };
     return (
       <div>
-            <h2>{movie.title}</h2>
-            <h3>Additional information</h3>
+        <Link to="/movies">Go back</Link>
+        <h2>{movie.title}</h2>
+        <h3>Additional information</h3>
         <ul>
           <li>
             <Link to="cast">Cast</Link>
@@ -34,8 +35,8 @@ const MovieDetails = () => {
           <li>
             <Link to="reviews">Reviews</Link>
           </li>
-            </ul>
-            <Outlet/>
+        </ul>
+        <Outlet />
       </div>
     );
 };
