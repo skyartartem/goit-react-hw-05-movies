@@ -1,8 +1,10 @@
 import SearchBar from 'components/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getSearch } from 'services/getSearch';
+
 const Movies = () => {
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
   //   const [search, setSearch] = useState('');
@@ -41,7 +43,7 @@ const Movies = () => {
         {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.title}</Link>
+              <Link to={`${movie.id}`} state={{from: location}}>{movie.title}</Link>
             </li>
           );
         })}

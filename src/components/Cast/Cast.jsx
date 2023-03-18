@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCredits } from 'services/getCredits';
+const BASE_URL = 'https://image.tmdb.org/t/p/w200';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -22,14 +23,20 @@ const Cast = () => {
       //   setError(error);
     }
   };
-
+console.log(cast);
   return (
     <div>
-      <h3>Cast id-{movieId}</h3>
-
+      {/* <h3>Cast</h3> */}
       <ul>
         {cast.map(item => {
-          return <li key="{item.id}">{item.name}</li>;
+          
+          return (
+            <li key={item.cast_id}>
+              <img src={`${BASE_URL}${item.profile_path}`} alt={item.name} />
+              <p>{item.name}</p>
+              <p>Caracter: {item.character}</p>
+            </li>
+          );
         })}
       </ul>
     </div>
