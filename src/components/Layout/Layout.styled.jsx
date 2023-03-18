@@ -10,8 +10,8 @@ export const Container = styled.div`
   /* width: 1280px; */
 `;
 export const Header = styled.header`
-  border-bottom: solid 2px black;
-  
+  border-bottom: solid 1px black;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
   /* margin-bottom: 20px; */
 `;
 export const Navigation = styled.nav`
