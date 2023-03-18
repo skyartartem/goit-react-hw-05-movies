@@ -1,16 +1,17 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import { getDetaiils } from 'services/getDetails';
+import { Card, Description, Wrapper, BackLink } from './MovieDetails.styled';
 const BASE_URL = 'https://image.tmdb.org/t/p/w300';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const backLink = useRef(location.state?.from ?? '/movies');
   const [movie, setMovie] = useState({});
   const [loading, setloading] = useState(false);
-
-  //   const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
+  const backLink = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     getFunc(movieId);
@@ -24,7 +25,7 @@ const MovieDetails = () => {
       //   setPage(data.page);
     } catch (error) {
       console.log(error);
-      //   setError(error);
+      setError(error);
     } finally {
       setloading(false);
     }
@@ -32,12 +33,14 @@ const MovieDetails = () => {
   return (
     <div>
       {loading && <div>loading...</div>}
-      <Link to={backLink.current}>Go back</Link>
+      {error && <h2>Somethig goes wrong...</h2>}
 
-      <div>
+      <BackLink to={backLink.current} ><FaArrowLeft size="10"/> Go back</BackLink>
+
+      <Card>
         <img src={`${BASE_URL}${movie.poster_path}`} alt="" />
         {!loading && (
-          <div>
+          <Description> 
             <h2>
               {movie.title} ({movie.release_date?.substr(0, 4)})
             </h2>
@@ -46,20 +49,19 @@ const MovieDetails = () => {
             <p>{movie.overview}</p>
             <h3>Genres</h3>
             <p>{movie.genres?.map(item => item.name).join(', ')}</p>
-          </div>
+          </Description>
         )}
-
-        <h3>Additional information</h3>
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
-        <Outlet />
-      </div>
+      </Card>
+      <h3>Additional information</h3>
+      <Wrapper>
+        <li>
+          <Link to="cast">Cast</Link>
+        </li>
+        <li>
+          <Link to="reviews">Reviews</Link>
+        </li>
+      </Wrapper>
+      <Outlet />
     </div>
   );
 };

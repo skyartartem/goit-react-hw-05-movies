@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Form } from './SearchBar.styled';
 const SearchBar = ({ handleSubmit }) => {
   const [search, setSearch] = useState('');
 
@@ -10,7 +11,8 @@ const SearchBar = ({ handleSubmit }) => {
     setSearch('');
   };
   return (
-    <form
+    
+    <Form
       onSubmit={evt => {
         evt.preventDefault();
         if (!search) {
@@ -23,7 +25,6 @@ const SearchBar = ({ handleSubmit }) => {
       <input
         value={search}
         onChange={onChangeInput}
-        // className={css.Input}
         name="search"
         type="text"
         autoComplete="off"
@@ -31,7 +32,7 @@ const SearchBar = ({ handleSubmit }) => {
         placeholder="Search movie"
       />
       <button type="submit">search</button>
-    </form>
+    </Form>
   );
 };
 

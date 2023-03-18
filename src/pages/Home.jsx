@@ -4,28 +4,31 @@ import { getTrends } from 'services/getTrends';
 
 const Home = () => {
   const [trends, setTrends] = useState([]);
-//   const [page, setPage] = useState(1);
-//   const [error, setError] = useState(null);
-const location = useLocation();
-  
+  const [error, setError] = useState(null);
+  const location = useLocation();
+  const [loading, setloading] = useState(false);
+
   useEffect(() => {
     getFunc();
   }, []);
 
   const getFunc = async () => {
+    setloading(true);
     try {
       const data = await getTrends();
       setTrends(data.results);
-    //   setPage(data.page);
     } catch (error) {
       console.log(error);
-    //   setError(error);
+      setError(error);
+    } finally {
+      setloading(false);
     }
   };
 
   return (
     <div>
-      <h1>Tranding today</h1>
+      <h2>Tranding today</h2>
+      {loading && <div>loading...</div>}
       <ul>
         {trends.map(movie => {
           return (
@@ -37,6 +40,7 @@ const location = useLocation();
           );
         })}
       </ul>
+      {error && <h2>Somethig goes wrong...</h2>}
     </div>
   );
 };
