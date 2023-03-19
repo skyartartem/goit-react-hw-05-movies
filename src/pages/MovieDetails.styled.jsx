@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Card = styled.div`
   display: flex;
+  flex-wrap: wrap;
   padding-bottom: 20px;
   border-bottom: solid 1px black;
 `;
