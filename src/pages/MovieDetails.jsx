@@ -2,7 +2,13 @@ import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { getDetaiils } from 'services/getDetails';
-import { Card, Description, Wrapper, BackLink } from './MovieDetails.styled';
+import {
+  Card,
+  Description,
+  Wrapper,
+  BackLink,
+  // StyledImg
+} from './MovieDetails.styled';
 const BASE_URL = 'https://image.tmdb.org/t/p/w300';
 
 const MovieDetails = () => {
@@ -40,7 +46,10 @@ const MovieDetails = () => {
       </BackLink>
 
       <Card>
-        <img src={`${BASE_URL}${movie.poster_path}`} alt="" />
+        <img
+          src={`${BASE_URL}${movie.poster_path}`}
+          alt={movie.name}
+        />
         {!loading && (
           <Description>
             <h2>
