@@ -1,6 +1,6 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { getDetaiils } from 'services/getDetails';
 import { Card, Description, Wrapper, BackLink } from './MovieDetails.styled';
 const BASE_URL = 'https://image.tmdb.org/t/p/w300';
@@ -35,12 +35,14 @@ const MovieDetails = () => {
       {loading && <div>loading...</div>}
       {error && <h2>Somethig goes wrong...</h2>}
 
-      <BackLink to={backLink.current} ><FaArrowLeft size="10"/> Go back</BackLink>
+      <BackLink to={backLink.current}>
+        <FaArrowLeft size="10" /> Go back
+      </BackLink>
 
       <Card>
         <img src={`${BASE_URL}${movie.poster_path}`} alt="" />
         {!loading && (
-          <Description> 
+          <Description>
             <h2>
               {movie.title} ({movie.release_date?.substr(0, 4)})
             </h2>
@@ -61,7 +63,9 @@ const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </Wrapper>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

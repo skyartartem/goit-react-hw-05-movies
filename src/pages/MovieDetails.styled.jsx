@@ -15,6 +15,9 @@ export const Wrapper = styled.ul`
 `;
 
 export const BackLink = styled(Link)`
+display: block;
+width: 100px;
+/* margin-bottom: 10px; */
   padding: 10px;
   &:hover{
     color: orange;
